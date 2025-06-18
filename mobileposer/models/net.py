@@ -17,7 +17,7 @@ from mobileposer.models.poser import Poser
 from mobileposer.models.joints import Joints
 from mobileposer.models.footcontact import FootContact
 from mobileposer.models.velocity import Velocity
-
+from mobileposer.models.joints_gcn import JointsGCN
 
 class MobilePoserNet(L.LightningModule):
     """
@@ -25,7 +25,7 @@ class MobilePoserNet(L.LightningModule):
     Outputs: SMPL Pose Parameters (as 6D Rotations) and Translation. 
     """
 
-    def __init__(self, poser: Poser=None, joints: Joints=None, foot_contact: FootContact=None, velocity: Velocity=None, finetune: bool=False):
+    def __init__(self, poser: Poser=None, joints: JointsGCN=None, foot_contact: FootContact=None, velocity: Velocity=None, finetune: bool=False):
         super().__init__()
 
         # constants
@@ -39,7 +39,7 @@ class MobilePoserNet(L.LightningModule):
 
         # model definitions
         self.pose = poser if poser else Poser()                                # pose estimation model
-        self.joints = joints if joints else Joints()                            # joint estimation model
+        self.joints = joints if joints else JointsGCN()                          # joint estimation model
         self.foot_contact = foot_contact if foot_contact else FootContact()     # foot-ground probability model
         self.velocity = velocity if velocity else Velocity()                    # joint velocity model
 

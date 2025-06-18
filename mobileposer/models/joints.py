@@ -29,7 +29,7 @@ class Joints(L.LightningModule):
         self.joints = RNN(self.C.n_imu, 24 * 3, 256) # joint estimation model 
 
         # loss function 
-        self.loss = nn.MSELoss()
+        self.loss = nn.SmoothL1Loss()
         self.t_weight = 1e-5
 
         # track stats
